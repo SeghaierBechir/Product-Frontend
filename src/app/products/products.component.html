@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">Product List</div>
+
+    <div class="card-body">
+      <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+        <div class="form-group">
+          <label class="control-label">Keywords</label>
+          <input class="from-control" type="text" name="keyword" ngModel>
+          
+          <button class="btn btn-primary" type="submit">
+            <span class="glyphicon glyphicon-search" aria-hidden="true" >></span>
+          search</button>
+        </div>
+      </form>
+      <table class="table table-striped" *ngIf="listProduct">
+        <thead>
+          <tr>
+            <th>ID</th><th>Designation</th><th>Price</th><th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of listProduct._embedded.products">
+            <td>{{p.id}}</td>
+            <td>{{p.designation}}</td>
+            <td>{{p.price|number:'0.2'}}</td>
+            <td>{{p.quantity}}</td>
+            <td><a class="btn btn-danger" (click)="onDeleteProduct(p)">Delete</a></td>
+            <td><a class="btn btn-warning" (click)="onEditProduct(p)">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="nav nav-pills" *ngIf="page">
+        <li class="nav-item" style="cursor: pointer;" *ngFor="let p of page; let i=index">
+          <a (click)="onPageProduct(i)"class="nav-link" data-toggle="pill">{{i}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
